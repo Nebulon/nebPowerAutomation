@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+      <AssemblyName>NebSharp</AssemblyName>
+      <Company>Nebulon, Inc.</Company>
+    <AssemblyVersion>$(AssemblyVersionNumber)</AssemblyVersion>
+      <InformationalVersion>$(AssemblyInformationalVersion)</InformationalVersion>
+      <OutputType>Library</OutputType>
+      <Description>A C# Assembly for automating Nebulon Cloud-Defined Storage products</Description>
+      <Copyright>(c) 2021 Nebulon, Inc. All Rights Reserved</Copyright>
+      <PackageLicenseFile>LICENSE</PackageLicenseFile>
+      <PackageProjectUrl>https://github.com/Nebulon/NebPowerAutomate</PackageProjectUrl>
+      <RepositoryUrl>https://github.com/Nebulon/NebPowerAutomate</RepositoryUrl>
+      <RepositoryType>Git</RepositoryType>
+      <PackageTags>Nebulon,Storage</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\NebSharp.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\NebSharp.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSBuild.AssemblyVersion" Version="1.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>

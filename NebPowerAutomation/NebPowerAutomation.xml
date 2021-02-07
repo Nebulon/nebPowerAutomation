@@ -1,0 +1,1634 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NebPowerAutomation</name>
+    </assembly>
+    <members>
+        <member name="M:NebPowerAutomation.Core.PowerShellLogger.#ctor(System.Management.Automation.Cmdlet)">
+            <summary>
+            Instantiate a new logger that writes to PowerShell
+            </summary>
+            <param name="cmdlet"></param>
+        </member>
+        <member name="M:NebPowerAutomation.Core.PowerShellLogger.#ctor(System.Management.Automation.Cmdlet,NebSharp.LogSeverity)">
+            <summary>
+            Instantiate a new logger that writes to PowerShell
+            </summary>
+            <param name="cmdlet"></param>
+            <param name="logLevel"></param>
+        </member>
+        <member name="M:NebPowerAutomation.Core.PowerShellLogger.GetTimestamp">
+            <summary>
+            Returns the current date and time in the format [yyyy-MM-dd HH:mm:ss].
+            This uses the local time zone of the user's computer.
+            </summary>
+            <returns>Current date and time in a standard format.</returns>
+        </member>
+        <member name="T:NebPowerAutomation.GetNebDataCenters">
+            <summary>
+            <para type="synopsis">
+            Get a list of existing datacenters and their properties
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebDataCenters.Guid">
+            <summary>
+            <para type="description">
+            Filter for a datacenter by a specific Guid
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebDataCenters.Name">
+            <summary>
+            <para type="description">
+            Filter for a datacenter by a specific name
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebDataCenters.Sort">
+            <summary>
+            <para type="description">
+            Set the sort direction for the reurned list
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebDataCenters.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebDataCenters.GenerateFilter(System.Collections.Generic.List{NebSharp.Types.DataCenterFilter})">
+            <summary>
+            Compiles a single filter from a list of filters by combining them
+            with a logical AND
+            </summary>
+            <param name="filters">
+            List of filters to combine
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebDataCenter">
+            <summary>
+            <para type="synopsis">
+            Create a new datacenter object
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebDataCenter.Address">
+            <summary>
+            <para type="description">
+            The datacenter address
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebDataCenter.Contacts">
+            <summary>
+            <para type="description">
+            A list of contacts for the datacenter. At least one contact must carry
+            the primary property.
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebDataCenter.Name">
+            <summary>
+            <para type="description">
+            The name of the datacenter
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebDataCenter.Note">
+            <summary>
+            <para type="description">
+            An optional note for the datacenter
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebDataCenter.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.RemoveNebDataCenter">
+            <summary>
+            <para type="synopsis">
+            Deletea a datacenter object
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RemoveNebDataCenter.Cascade">
+            <summary>
+            <para type="description">
+            An optional parameter that allows deletion of all child objects
+            of the datacenter when deleting. If the parameter is not provided
+            and the datacenter has child objects, the deletion will fail.
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RemoveNebDataCenter.Guid">
+            <summary>
+            <para type="description">
+            The unique identifer of the datacenter to delete
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.RemoveNebDataCenter.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.SetNebDataCenter">
+            <summary>
+            <para type="synopsis">
+            Allows updating of datacenter properties
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.SetNebDataCenter.Address">
+            <summary>
+            <para type="description">
+            Allows updating the address of a datacenter
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.SetNebDataCenter.Contacts">
+            <summary>
+            <para type="description">
+            Allows updating the list of contacts for a datacenter
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.SetNebDataCenter.Guid">
+            <summary>
+            <para type="description">
+            The unique identifier of the datacenter to update
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.SetNebDataCenter.Name">
+            <summary>
+            <para type="description">
+            Allows updating the name of a datacenter
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.SetNebDataCenter.Note">
+            <summary>
+            <para type="description">
+            Allows updating the optional note of a datacenter
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.SetNebDataCenter.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNebAlert">
+            <summary>
+            <para type="synopsis">
+            Get a list of open alerts
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebAlert.CreatedAfter">
+            <summary>
+            <para type="description">
+            Filter for alerts created after the specified date
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebAlert.CreatedBefore">
+            <summary>
+            <para type="description">
+            Filter for alerts created before the specified date
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebAlert.ResourceId">
+            <summary>
+            <para type="description">
+            Filter for alerts that are releated to the specified resource Id
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebAlert.ResourceType">
+            <summary>
+            <para type="description">
+            Filter for alerts that are related to the specified resource type
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebAlert.Severity">
+            <summary>
+            <para type="description">
+            Filter for alerts that match the specified alert severity
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebAlert.Status">
+            <summary>
+            <para type="description">
+            Filter for alerts that match the specified alert status
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebAlert.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNebSpu">
+            <summary>
+            Get a list of services processing units
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebSpu.SpuSerial">
+            <summary>
+            Filter SPUs for a specific serial number
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebSpu.Unused">
+            <summary>
+            Filter list of SPUs to include only unused SPUs
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebSpu.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNebSpuCustomDiagnostics">
+             <summary>
+             Retrieves a list of custom diagnostic command requests.
+            
+             <para>
+             Custom diagnostic command requests are used by customer satisfaction
+             teams to run arbitrary troubleshooting commands on SPUs. These
+             require user confirmation.
+             </para>
+             </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebSpuCustomDiagnostics.SpuSerial">
+            <summary>
+            Filter for a specific serial number
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebSpuCustomDiagnostics.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.InvokeNebSpuSecureErase">
+             <summary>
+             Allows to secure-erase data on a services processing unit (SPU)
+            
+             <para type="description">
+             The secure erase functionality allows a deep-erase of data stored
+             on the physical drives attached to the SPU.Only SPUs that are not
+             part of a nPod can be secure-erased.
+             </para>
+             </summary>
+        </member>
+        <member name="P:NebPowerAutomation.InvokeNebSpuSecureErase.Serial">
+            <para type="description">
+            Serial number of the services processing unit
+            </para>
+        </member>
+        <member name="M:NebPowerAutomation.InvokeNebSpuSecureErase.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.PingNebSpu">
+            <summary>
+            Allows turning on the locate LEDs of an SPU
+            </summary>
+            <para type="description">
+            Allows testing if a services processing unit with a given serial
+            number is reachable over the network.
+            </para>
+        </member>
+        <member name="P:NebPowerAutomation.PingNebSpu.Serial">
+            <para type="description">
+            Serial number of the services processing unit
+            </para>
+        </member>
+        <member name="M:NebPowerAutomation.PingNebSpu.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.RegisterNebSpu">
+            <summary>
+            Adds an unregistered SPU to the organization
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RegisterNebSpu.Serial">
+            <summary>
+            The serial number of the SPU to register
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.RegisterNebSpu.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.RequestNebCustomDiagnostics">
+             <summary>
+             Allows running custom diagnostic commands
+            
+             <para>
+             SPU custom diagnostics requests allows customers to run arbitrary
+             diagnostic commands on the services processing units as part of
+             troubleshooting issues during a support case.
+             </para>
+             </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RequestNebCustomDiagnostics.DiagnosticName">
+            <summary>
+            The name of the diagnostics to execute
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RequestNebCustomDiagnostics.NPodGuid">
+            <summary>
+            The Guid of a nPod for which to execute custom diagnostics
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RequestNebCustomDiagnostics.RequestGuid">
+            <summary>
+            The custom diagnostics request Guid
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RequestNebCustomDiagnostics.SpuSerial">
+            <summary>
+            The serial number of an SPU for which to execute custom diagnostics
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.RequestNebCustomDiagnostics.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.UnregisterNebSpu">
+            <summary>
+            Removes a registered SPU from the organization
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.UnregisterNebSpu.Serial">
+            <summary>
+            The serial number of the SPU to unregister
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.UnregisterNebSpu.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNebHost">
+            <summary>
+            <para type="synopsis">
+            Get a list of hosts / servers
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebHost.BoardSerial">
+            <summary>
+            <para type="description">
+            Filter for host by a specific board serial
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebHost.ChassisSerial">
+            <summary>
+            <para type="description">
+            Filter for host by a specific chassis serial
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebHost.Guid">
+            <summary>
+            <para type="description">
+            Filter hosts by a specific unique identifier
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebHost.Manufacturer">
+            <summary>
+            <para type="description">
+            Filter for host by a specific manufacturer
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebHost.Model">
+            <summary>
+            <para type="description">
+            Filter for host by a specific model
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebHost.Name">
+            <summary>
+            <para type="description">
+            Filter for host by a specific host name
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebHost.NPod">
+            <summary>
+            <para type="description">
+            Filter for hosts in a specific nPod
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebHost.Server">
+            <summary>
+            <para type="description">
+            Filter for host
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebHost.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebHost.GenerateFilter(System.Collections.Generic.List{NebSharp.Types.HostFilter})">
+            <summary>
+            Compiles a single filter from a list of filters by combining them
+            with a logical AND
+            </summary>
+            <param name="filters">
+            List of filters to combine
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:NebPowerAutomation.SetNebHost">
+            <summary>
+            <para type="synopsis">
+            Allows updating of properties of a host
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.SetNebHost.Guid">
+            <summary>
+            <para type="description">
+            The unique identifier of the host to update
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.SetNebHost.Name">
+            <summary>
+            <para type="description">
+            The new name for the host
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.SetNebHost.Note">
+            <summary>
+            <para type="description">
+            The new note for the host
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.SetNebHost.RackGuid">
+            <summary>
+            <para type="description">
+            The new rack unique identifier, when moving a server to a
+            different rack
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.SetNebHost.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNebNPod">
+            <summary>
+            <para type="synopsis">
+            Get a list of nPods
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebNPod.Guid">
+            <summary>
+            <para type="description">
+            Filter nPods by the specified unique identifier
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebNPod.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.NewIPInfoConfigInput">
+            <summary>
+            <para type="synopsis">
+            Create a new input object for configuring network interfaces for SPUs
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewIPInfoConfigInput.Address">
+            <summary>
+            <para type="description">
+            The network IP addresss (IPv4 or IPv6) for the network
+            interface. This value is only considered when DHCP isn't used
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewIPInfoConfigInput.BondMode">
+            <summary>
+            <para type="description">
+            Specifies the bond mode for the data interfaces
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewIPInfoConfigInput.DataPort1">
+            <summary>
+            <para type="description">
+            Include data port #1 in the configuration
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewIPInfoConfigInput.DataPort2">
+            <summary>
+            <para type="description">
+            Include data port #2 in the configuration
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewIPInfoConfigInput.Dhcp">
+            <summary>
+            <para type="description">
+            Use DHCP for the data network interface instead
+            of a static configuration. Static configuration
+            is recommended.
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewIPInfoConfigInput.Gateway">
+            <summary>
+            <para type="description">
+            The gateway IP address to use for the interface
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewIPInfoConfigInput.Mtu">
+            <summary>
+            <para type="description">
+            Allows overwriting the default MTU 1500
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewIPInfoConfigInput.NetmaskBits">
+            <summary>
+            <para type="description">
+            The network mask in bits
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewIPInfoConfigInput.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebNPod">
+            <summary>
+            <para type="synopsis">
+            Creates a new nPod
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPod.IgnoreWarnings">
+            <summary>
+            <para type="description">
+            Ignore provisioning warnings and force the creation of
+            the nPod
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPod.Name">
+            <summary>
+            <para type="description">
+            The name for the new nPod
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPod.Note">
+            <summary>
+            <para type="description">
+            An optional note for the new nPod
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPod.NPodGroupGuid">
+            <summary>
+            <para type="description">
+            The unique identifier of the nPod group this nPod
+            shall be created in
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPod.Spus">
+            <summary>
+            <para type="description">
+            List of SPU configurations to use for the new nPod
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPod.TemplateGuid">
+            <summary>
+            <para type="description">
+            The unique identifier of the nPod template for the new
+            nPod
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebNPod.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebNPodSpuInput">
+            <summary>
+            <para type="synopsis">
+            Creates a new input object to configure SPUs for nPods
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPodSpuInput.IPInfoConfigInput">
+            <summary>
+            <para type="description">
+            List of SPU network configurations for the SPUs data ports
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPodSpuInput.Name">
+            <summary>
+            <para type="description">
+            A human readable name for the SPU
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPodSpuInput.Serial">
+            <summary>
+            <para type="description">
+            The serial number of the SPU
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebNPodSpuInput.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.RemoveNebNPod">
+            <summary>
+            <para type="synopsis">
+            Removes an existing nPod
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RemoveNebNPod.Guid">
+            <summary>
+            <para type="description">
+            The unique identifier of the nPod to delete
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.RemoveNebNPod.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNebLun">
+            <summary>
+            <para type="synopsis">
+            Get a list of volume exports for existing volumes
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebLun.Guid">
+            <summary>
+            <para type="description">
+            The unique identifier of a volume export.
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebLun.LunId">
+            <summary>
+            <para type="description">
+            Get volume exports that match the specified LUN ID
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebLun.NPod">
+            <summary>
+            <para type="description">
+            Get volume exports of the specified NPod
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebLun.Server">
+            <summary>
+            <para type="description">
+            Get volume exports of the specified SPU
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebLun.Spu">
+            <summary>
+            Get volume exports of the specified SPU
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebLun.Volume">
+            <summary>
+            <para type="description">
+            Get volume exports of the specified volume
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebLun.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebLun.GenerateFilter(System.Collections.Generic.List{NebSharp.Types.LunFilter})">
+            <summary>
+            Compiles a single filter from a list of filters by combining them
+            with a logical AND
+            </summary>
+            <param name="filters">
+            List of filters to combine
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebLun">
+            <summary>
+            <para type="synopsis">
+            Creates a new volume export
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebLun.Local">
+            <summary>
+            <para type="description">
+            If provided, the volume will be exported with ALUA turned off
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebLun.LunId">
+            <summary>
+            <para type="description">
+            An optional LUN ID for the new export
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebLun.Server">
+            <summary>
+            <para type="description">
+            Host / server to which the volume shall be exported to. Either
+            Server or Spu must be specified
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebLun.Spu">
+            <summary>
+            <para type="description">
+            SPU to which the volume shall be exported to. Either Spu or
+            Server must be specified
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebLun.Volume">
+            <summary>
+            <para type="description">
+            The volume that shall be exported.
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebLun.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.RemoveNebLun">
+            <summary>
+            <para type="synopsis">
+            Removes a volume export
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RemoveNebLun.Guid">
+            <summary>
+            <para type="description">
+            The unique identifier of the volume export to remove
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.RemoveNebLun.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNebVolume">
+            <summary>
+            <para type="synopsis">
+            Get a list of existing volumes, snapshots, or clones
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebVolume.Guid">
+            <summary>
+            Filter volumes by a specific unique identifier
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebVolume.IncludeSnapshots">
+            <summary>
+            <para type="description">
+            When provided, also snapshots are included in the listing
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebVolume.Name">
+            <summary>
+            <para type="description">
+            Filter volumes by a specific volume name
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebVolume.NPod">
+            <summary>
+            <para type="description">
+            The nPod in which the volume is created
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebVolume.OnlySnapshots">
+            <summary>
+            <para type="description">
+            When provided, only snapshots will be listed
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebVolume.ParentVolume">
+            <summary>
+            <para type="description">
+            Filter snapshots by their parent volume
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebVolume.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebVolume.GenerateFilter(System.Collections.Generic.List{NebSharp.Types.VolumeFilter})">
+            <summary>
+            Compiles a single filter from a list of filters by combining them
+            with a logical AND
+            </summary>
+            <param name="filters">
+            List of filters to combine
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebClone">
+            <summary>
+            <para type="synopsis">
+            Creates a clone from a snapshot or volume.
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebClone.Name">
+            <summary>
+            <para type="description">
+            The name for the new clone
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebClone.Volume">
+            <summary>
+            <para type="description">
+            The volume or snapshot from which to create a clone
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebClone.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebSnapshot">
+            <summary>
+            <para type="synopsis">
+            Creates a read only snapshot of a volume.
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebSnapshot.ExpirationSeconds">
+            <summary>
+            <para type="description">
+            The time in seconds in which the snapshot will be automatically
+            deleted after its creation
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebSnapshot.NamePattern">
+            <summary>
+            <para type="description">
+            A name pattern to use for the new snapshot
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebSnapshot.RetentionSeconds">
+            <summary>
+            <para type="description">
+            The time in seconds for how long the snapshot can't be deleted
+            after its creation
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebSnapshot.Volume">
+            <summary>
+            <para type="description">
+            The volume from which to create a snapshot
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebSnapshot.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebVolume">
+            <summary>
+            <para type="synopsis">
+            Creates a new volume
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebVolume.BackupSpuSerial">
+            <summary>
+            <para type="description">
+            Optionally the SPU serial number on which to place the backup
+            copy of a mirrored volume
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebVolume.Force">
+            <summary>
+            <para type="description">
+            Allows overwriting capacity utilization warnings and force the
+            creation of a volume
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebVolume.Mirrored">
+            <summary>
+            <para type="description">
+            Creates the volume as a mirrored volume
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebVolume.Name">
+            <summary>
+            <para type="description">
+            The name of the new volume
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebVolume.NPod">
+            <summary>
+            <para type="description">
+            The nPod in which the volume shall be created
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebVolume.OwnerSpuSerial">
+            <summary>
+            <para type="description">
+            Optionally the SPU serial number on which to place the primary
+            copy of a mirrored volume
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebVolume.SizeBytes">
+            <summary>
+            <para type="description">
+            The size of the volume in bytes
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebVolume.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.RemoveNebVolume">
+            <summary>
+            <para type="synopsis">
+            Deletes a volume.
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RemoveNebVolume.Volume">
+            <summary>
+            <para type="description">
+            The volume, snapshot or clone to delete
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.RemoveNebVolume.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.NebPSCmdlet">
+            <summary>
+            A Nebulon PowerShell Cmdlet
+            </summary>
+        </member>
+        <member name="F:NebPowerAutomation.NebPSCmdlet._isLogSetup">
+            <summary>
+            Keeps track of the logger. If true, the logger is configured.
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NebPSCmdlet.LogLevel">
+            <summary>
+            Log level for the PowerShell logger
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NebPSCmdlet.Connection">
+            <summary>
+            A nebulon ON connection to use for the command execution.
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NebPSCmdlet.BeginProcessing">
+            <summary>
+            Performns initialization of the execution
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NebPSCmdlet.ParameterPresent(System.String)">
+            <summary>
+            Check if a specific property was present during invocation
+            </summary>
+            <param name="propertyName">
+            Name of the property
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:NebPowerAutomation.NebPSCmdlet.WriteError(System.Exception)">
+            <summary>
+            Allows writing an exception to the console
+            </summary>
+            <param name="ex">
+            An exception to unpack and write to the console
+            </param>
+        </member>
+        <member name="M:NebPowerAutomation.NebPSCmdlet.LoadConnection">
+            <summary>
+            Sets the nebulon connection if it is set globally in the
+            PowerShell session and fails if no connection is found.
+            </summary>
+            <exception cref="T:System.ArgumentException">
+            If no connection is established
+            </exception>
+        </member>
+        <member name="M:NebPowerAutomation.NebPSCmdlet.LoadLogging">
+            <summary>
+            Configures the PowerShell log with the requested verbosity level
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNPodTemplate">
+            <summary>
+            <para type="synopsis">
+            Get a list of nPod templates
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.Application">
+            <summary>
+            <para type="description">
+            Filter templates by the specified application name
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.Guid">
+            <summary>
+            <para type="description">
+            Filter templates by the specified template unique identifier
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.IncludeVersions">
+            <summary>
+            <para type="description">
+            If specified, includes all previous versions of templates
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.Name">
+            <summary>
+            <para type="description">
+            Filter templates by the specified template name
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NebulonTemplate">
+            <summary>
+            <para type="description">
+            Filter templates for only Nebulon provided templates
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.OperatingSystem">
+            <summary>
+            <para type="description">
+            Filter templates by the specified operating system name
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNPodTemplate.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNPodTemplate.GenerateFilter(System.Collections.Generic.List{NebSharp.Types.NPodTemplateFilter})">
+            <summary>
+            Compiles a single filter from a list of filters by combining them
+            with a logical AND
+            </summary>
+            <param name="filters">
+            List of filters to combine
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate">
+            <summary>
+            <para type="synopsis">
+            Creates a new application template
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.Application">
+            <summary>
+            <para type="description">
+            Name of the application
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.BootImageURL">
+            <summary>
+            <para type="description">
+            URL to a boot image
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.BootVolume">
+            <summary>
+            <para type="description">
+            If specified a boot volume will be provisioned
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.BootVolumeSizeBytes">
+            <summary>
+            <para type="description">
+            Size of the boot volume
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.MirroredVolume">
+            <summary>
+            <para type="description">
+            Indicates if volumes shall be mirrored
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.Name">
+            <summary>
+            <para type="description">
+            Name of the application tempalte
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.Note">
+            <summary>
+            <para type="description">
+            Optional note for the template
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.OperatingSystem">
+            <summary>
+            <para type="description">
+            Name of the operating system
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.SavingFactor">
+            <summary>
+            <para type="description">
+            Anticipated savings factor for data
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.SharedLun">
+            <summary>
+            <para type="description">
+            Indicates if volumes shall be shared between all hosts in the nPod
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.SnapshotScheduleTemplateGuids">
+            <summary>
+            <para type="description">
+            List of snapshot schedule templates to associate with this template
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.VolumeCount">
+            <summary>
+            <para type="description">
+            Allows specifying the number of volumes to create (only supported when using local volumes)
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.VolumeSizeBytes">
+            <summary>
+            <para type="description">
+            Allows specifying the size of volumes to create
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNPodTemplate.NewNPodTemplate.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNPodTemplate.RemoveNPodTemplate">
+            <summary>
+            <para type="synopsis">
+            Delete an application template
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.RemoveNPodTemplate.Guid">
+            <summary>
+            <para type="description">
+            The unique identifier of the template to delete
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNPodTemplate.RemoveNPodTemplate.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate">
+            <summary>
+            <para type="synopsis">
+            Allows updating properties of an application template
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.Application">
+            <summary>
+            <para type="description">
+            Name of the application
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.BootImageURL">
+            <summary>
+            <para type="description">
+            URL to a boot image
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.BootVolume">
+            <summary>
+            <para type="description">
+            If set to true, a boot volume will be provisioned
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.BootVolumeSizeBytes">
+            <summary>
+            <para type="description">
+            Size of the boot volume in bytes
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.MirroredVolume">
+            <summary>
+            <para type="description">
+            Indicates if the volume shall be mirrored
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.Name">
+            <summary>
+            <para type="description">
+            Name of the application template to update
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.Note">
+            <summary>
+            <para type="description">
+            Optional note for the application template
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.OperatingSystem">
+            <summary>
+            <para type="description">
+            Name of the operating system
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.SavingFactor">
+            <summary>
+            <para type="description">
+            Anticipated savings factor
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.SharedLun">
+            <summary>
+            <para type="description">
+            Indicates if the volumes shall be shared between all hosts in the nPod
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.SnapshotScheduleTemplateGuids">
+            <summary>
+            <para type="description">
+            List of snapshot schedules associated with the template
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.VolumeCount">
+            <summary>
+            <para type="description">
+            Allows specifying the number of volumes to create (only supported when using local volumes)
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.VolumeSizeBytes">
+            <summary>
+            <para type="description">
+            Allows specifying the size of volumes to create
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNPodTemplate.SetNPodTemplate.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebAddress">
+            <summary>
+            <para type="synopsis">
+            Creates a new address input for a datacenter
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebAddress.Address1">
+            <summary>
+            <para type="description">
+            The address field 1
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebAddress.Address2">
+            <summary>
+            <para type="description">
+            The address field 2
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebAddress.Address3">
+            <summary>
+            <para type="description">
+            The address field 3
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebAddress.City">
+            <summary>
+            <para type="description">
+            The city
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebAddress.CountryCode">
+            <summary>
+            <para type="description">
+            The country code
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebAddress.HouseNumber">
+            <summary>
+            <para type="description">
+            The house number
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebAddress.PostalCode">
+            <summary>
+            <para type="description">
+            The postal code
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebAddress.StateProvinceCode">
+            <summary>
+            <para type="description">
+            The state or province code
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebAddress.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebContact">
+            <summary>
+            <para type="synopsis">
+            Creates a new contact input for a datacenter
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebContact.CommunicationMethod">
+            <summary>
+            <para type="description">
+            The prefered communication method for this customer, e.g. email or phone.
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebContact.Guid">
+            <summary>
+            <para type="description">
+            The unique identifier of an existing user in nebulon ON that
+            is the user contact
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebContact.Primary">
+            <summary>
+            <para type="description">
+            Indicates if this contact is the primary contact for a datacenter
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebContact.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetLoginStatus">
+            <summary>
+            <para type="synopsis">
+            Get information about the currently used nebulon ON connection
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetLoginStatus.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebulonConnection">
+            <summary>
+            <para type="synopsis">
+            Creates a new connection to nebulon ON
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebulonConnection.Credential">
+            <summary>
+            <para type="description">
+            A credential object to login to nebulon ON
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebulonConnection.Password">
+            <summary>
+            <para type="description">
+            The username to use for login
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebulonConnection.UserName">
+            <summary>
+            <para type="description">
+            The password to use for login
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebulonConnection.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.RemoveNebulonConnection">
+            <summary>
+            <para type="synopsis">
+            Disconnect and delete the currently used Nebulon ON connection
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.RemoveNebulonConnection.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.GetNebNPodGroup">
+            <summary>
+            <para type="synopsis">
+            Get a list of nPodGroups
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebNPodGroup.Guid">
+            <summary>
+            <para type="description">
+            Filter nPodGroups by a specific unique identifier
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.GetNebNPodGroup.Name">
+            <summary>
+            <para type="description">
+            Filter nPodGroups by a specific name
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebNPodGroup.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.GetNebNPodGroup.GenerateFilter(System.Collections.Generic.List{NebSharp.Types.NPodGroupFilter})">
+            <summary>
+            Compiles a single filter from a list of filters by combining them
+            with a logical AND
+            </summary>
+            <param name="filters">
+            List of filters to combine
+            </param>
+            <returns></returns>
+        </member>
+        <member name="T:NebPowerAutomation.NewNebNPodGroup">
+            <summary>
+            <para type="synopsis">
+            Creates a new nPod Group
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPodGroup.Name">
+            <summary>
+            <para type="description">
+            Name of the nPod group
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.NewNebNPodGroup.Note">
+            <summary>
+            <para type="description">
+            Optional note for the nPod group
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.NewNebNPodGroup.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+        <member name="T:NebPowerAutomation.RemoveNebNPodGroup">
+            <summary>
+            <para type="synopsis">
+            Deletes an existing nPod group
+            </para>
+            </summary>
+        </member>
+        <member name="P:NebPowerAutomation.RemoveNebNPodGroup.Guid">
+            <summary>
+            <para type="description">
+            Unique identifier of the nPod group to delete
+            </para>
+            </summary>
+        </member>
+        <member name="M:NebPowerAutomation.RemoveNebNPodGroup.ProcessRecord">
+            <summary>
+            Performs execution of the command
+            </summary>
+        </member>
+    </members>
+</doc>
