@@ -188,7 +188,7 @@ namespace NebSharp
             parameters.Add(@"podUID", nPodGuid, false);
             parameters.Add(@"packageName", packageName, false);
 
-            return RunMutation<Issues>(@"updatePrecheck", parameters);
+            return RunQuery<Issues>(@"updatePrecheck", parameters);
         }
     }
 }

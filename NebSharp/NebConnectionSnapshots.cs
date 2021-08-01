@@ -15,6 +15,7 @@
 
 using NebSharp.Types;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace NebSharp
@@ -113,7 +114,7 @@ namespace NebSharp
         /// The number of seconds before a user can delete the snapshots.
         /// </param>
         /// <returns></returns>
-        public Volume CreateSnapshot(
+        public Volume[] CreateSnapshot(
             Guid[] parentVolumeGuids,
             string[] namePatterns,
             long? expirationSeconds = null,
@@ -128,29 +129,55 @@ namespace NebSharp
             parameters.Add("expirationSec", expirationSeconds, false);
             parameters.Add("retentionSec", retentionSeconds, false);
 
+            DateTime creationTime = DateTime.UtcNow;
+
             TokenResponse tokenResponse = RunMutation<TokenResponse>(
-                @"createSnap", parameters);
+                @"createSnap",
+                parameters
+            );
+
             bool deliverySuccess = DeliverToken(tokenResponse);
 
             if (!deliverySuccess)
                 throw new Exception("Snapshot creation failed");
 
-            // query for the snapshot
+            // query for the volumes (and indirectly get their snapshots)
             VolumeFilter filter = new VolumeFilter();
             filter.Guid = new GuidFilter();
-            filter.Guid.MustEqual = tokenResponse.WaitOn;
+            filter.Guid.In = parentVolumeGuids;
 
             DateTime start = DateTime.UtcNow;
+
+            VolumeList volumes = GetVolumes(null, filter, null);
 
             while (true)
             {
                 Thread.Sleep(2000);
 
-                VolumeList list = GetVolumes(null, filter, null);
+                // candidates for the snapshots we just created
+                List<Guid> candidates = new List<Guid>();
 
-                if (list.FilteredCount > 0)
-                    return list.Items[0];
+                // there should always be at least one item in the list
+                foreach(Volume volume in volumes.Items)
+                {
+                    foreach(Guid snapshotGuid in volume.SnapshotGuids)
+                        candidates.Add(snapshotGuid);
+                }
 
+                if (candidates.Count > 0)
+                {
+                    filter = new VolumeFilter();
+                    filter.SnapshotsOnly = true;
+                    filter.And = new VolumeFilter();
+                    filter.And.CreationTime = new IntFilter();
+                    filter.And.CreationTime.GreaterThan = ((DateTimeOffset)creationTime).ToUnixTimeSeconds();
+
+                    VolumeList list = GetVolumes(null, filter, null);
+
+                    if (list.FilteredCount > 0)
+                        return list.Items;
+                }
+                    
                 // check if we should time out.
                 double duration = (DateTime.UtcNow - start).TotalSeconds;
                 double remaining = SNAPSHOT_CREATE_WAITTIME_SEC - duration;

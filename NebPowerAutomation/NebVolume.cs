@@ -306,14 +306,15 @@ namespace NebPowerAutomation
         {
             try
             {
-                Volume snapshot = Connection.CreateSnapshot(
+                Volume[] snapshots = Connection.CreateSnapshot(
                     new[] { Volume.Guid },
                     new[] { NamePattern },
                     ExpirationSeconds,
                     RetentionSeconds
                 );
 
-                WriteObject(snapshot);
+                foreach(Volume snapshot in snapshots)
+                    WriteObject(snapshot);
             }
             catch (AggregateException exceptions)
             {

@@ -75,7 +75,9 @@ namespace NebSharp
         /// <summary>
         /// Instantiate a new connection to Nebulon ON. This will not automatically log in a user.
         /// </summary>
-        public NebConnection()
+        /// <param name="clientName">Allows specifying an application name for Auditing</param>
+        /// <param name="clientVersion">Allows specifying an application version for Auditing</param>
+        public NebConnection(string clientName = null, string clientVersion = null)
         {
             _httpHandler = new HttpClientHandler();
             _httpHandler.UseCookies = true;
@@ -89,10 +91,14 @@ namespace NebSharp
             // auditing what client was using the API.
             AssemblyName assembly = typeof(NebConnection).Assembly.GetName();
 
+
+            string newClientName = string.IsNullOrEmpty(clientName) ? assembly.Name : clientName;
+            string newClientVersion = string.IsNullOrEmpty(clientVersion) ? assembly.Version.ToString() : clientVersion;
+
             _assemblyVersion = string.Concat(
-                    assembly.Name,
+                    newClientName,
                     "/",
-                    assembly.Version
+                    newClientVersion
             );
 
             _platform = string.Concat(
@@ -131,6 +137,7 @@ namespace NebSharp
 
             throw new Exception("Unable to delivery token to any SPU");
         }
+
 
         /// <summary>
         /// Delivers the token to SPUs that support recipe engine v2
