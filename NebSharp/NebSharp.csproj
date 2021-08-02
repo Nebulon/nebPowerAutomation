@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
       <AssemblyName>NebSharp</AssemblyName>
       <Company>Nebulon, Inc.</Company>
-    <AssemblyVersion>$(AssemblyVersionNumber)</AssemblyVersion>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
       <InformationalVersion>$(AssemblyInformationalVersion)</InformationalVersion>
       <OutputType>Library</OutputType>
       <Description>A C# Assembly for automating Nebulon Cloud-Defined Storage products</Description>
@@ -14,6 +14,7 @@
       <RepositoryUrl>https://github.com/Nebulon/NebPowerAutomate</RepositoryUrl>
       <RepositoryType>Git</RepositoryType>
       <PackageTags>Nebulon,Storage</PackageTags>
+      <FileVersion>1.0.3.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
