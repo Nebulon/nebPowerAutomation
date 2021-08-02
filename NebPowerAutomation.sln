@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NebSharp", "NebSharp\NebSharp.csproj", "{2B583419-BCE9-485D-B600-91831A35B8F7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CE443397-1A25-4079-B044-FD1C74AC27F3}"
+	ProjectSection(SolutionItems) = preProject
+		NebPowerAutomation\NebPowerAutomation.psd1 = NebPowerAutomation\NebPowerAutomation.psd1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

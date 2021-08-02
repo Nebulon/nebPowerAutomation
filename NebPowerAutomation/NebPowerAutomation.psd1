@@ -12,7 +12,7 @@
 RootModule = 'NebPowerAutomation.dll'
 
 # Version number of this module.
-ModuleVersion = '1.0.2'
+ModuleVersion = '1.0.4'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -33,7 +33,7 @@ Copyright = '(c) 2021 Nebulon, Inc. All rights reserved'
 Description = 'Nebulon ON integration with Windows PowerShell.'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '5.0'
+PowerShellVersion = '5.1'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -41,7 +41,8 @@ PowerShellVersion = '5.0'
 # Minimum version of the PowerShell host required by this module
 # PowerShellHostVersion = ''
 
-# Minimum version of Microsoft .NET Framework required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
+# Minimum version of Microsoft .NET Framework required by this module. 
+# This prerequisite is valid for the PowerShell Desktop edition only.
 DotNetFrameworkVersion = '4.8'
 
 # Minimum version of the common language runtime (CLR) required by this module. This prerequisite is valid for the PowerShell Desktop edition only.
