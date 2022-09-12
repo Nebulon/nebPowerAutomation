@@ -1,81 +1,124 @@
-pipeline {
-    agent any
+node {
+    def currentV
+    def targetV
 
-    stages {  
-        stage('Checkout'){
-            steps {
-                  git branch: env.branch,
-                    credentialsId: 'bitbucket.tobias.ssh',
-                    url: "git@bitbucket.org:nebuloninc/nebpowershell.git"
-            }
-        }
-        stage("Env Variables") {
-            steps {
-                echo bat(returnStdout: true, script: 'set')
-            }
-        }
-        stage('Build'){
-            environment {
-                app_version = getAppVersion()
-                NUGET_PACKAGES = getNugetDir()
-            }
-            steps {
-                echo "Author: ${env.CHANGE_AUTHOR}"
-                echo "Tag: ${env.TAG_NAME}"
-                bat "nuget.exe restore -Verbosity quiet"
-                bat "MSBuild.exe NebPowerAutomation.sln /property:Configuration=%configuration% /verbosity:quiet "
-            }
-        }
-        stage('Test'){
-            environment{
-                NEB_CREDENTIALS = credentials('nebcloud-credentials')
-            }
-            steps {
-                bat "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe\" NebSharpTest\\bin\\%configuration%\\netcoreapp3.1\\NebSharpTest.dll /Logger:html;LogFileName=TestResults.html"
-            }
-        }
-        stage('Package') {
-            steps {
-                bat "tar -c -a -f package.zip -C NebPowerAutomation\\bin\\%configuration% *.dll"
-            }
-        }
-    }
-    post { 
-        always { 
-            archiveArtifacts artifacts: 'package.zip,TestResults\\TestResults.html', fingerprint: true
-            notifySlack(bat(returnStdout: true, script: 'git log --pretty=format:"%h - %an, %ar : %s" --since=1.days'))
+    // setup defaults
+    currentBuild.result = 'SUCCESS'
+
+    try {
+
+        stage('Clean Workspace') {
             cleanWs()
         }
+
+        stage('Checkout BitBucket') {
+            dir("bitbucket") {
+                git(
+                    branch: 'master',
+                    credentialsId: 'bitbucket.tobias.ssh',
+                    url: 'git@bitbucket.org:nebuloninc/nebpowershell.git'
+                )
+
+                targetV = powershell (returnStdout: true, script: "Get-Content VERSION")
+                targetV = targetV.trim()
+                targetV = targetV.replaceAll("(\r\n)", "")
+                bat "echo 'Target version is ${targetV}'"
+
+                env.TARGET = targetV
+            }
+        }
+
+        stage('Checkout GitHub') {
+            withCredentials([string(credentialsId: 'github-powershell', variable: 'GITHUB_TOKEN')]) {
+                bat "git clone https://token:${GITHUB_TOKEN}@github.com/Nebulon/nebPowerAutomation.git"
+
+                currentV = powershell (returnStdout: true, script: "Get-Content nebPowerAutomation\\VERSION")
+                currentV = currentV.trim()
+                currentV = currentV.replaceAll("(\r\n)", "")
+                bat "echo 'Current version is ${currentV}'"
+
+                env.CURRENT = currentV
+            }
+        }
+
+       
+        stage('Update GitHub') {
+            withEnv(["TARGET=${targetV}","CURRENT=${currentV}"]) {
+                bat "echo 'Current: ${env.CURRENT}, Target: ${env.TARGET}'"
+
+                if (env.CURRENT != env.TARGET) {
+                    bat "cd nebPowerAutomation && dir"
+                    bat "cd nebPowerAutomation && git config user.name tflitsch"
+                    bat "cd nebPowerAutomation && git config user.email tflitsch@users.noreply.github.com"
+
+                    bat "xcopy bitbucket nebPowerAutomation /s /e /y"
+                    bat "cd nebPowerAutomation && git add ."
+                    bat "cd nebPowerAutomation && git status"
+                    bat "cd nebPowerAutomation && git commit -m \"Repository sync\""
+                    bat "cd nebPowerAutomation && git tag v${env.TARGET}"
+                    bat "cd nebPowerAutomation && git push"
+                    bat "cd nebPowerAutomation && git push --tags"
+
+                } else {
+                    bat "echo 'Version is already current. Won't sync with GitHub'"
+                }
+
+                bat "rd /S /Q nebPowerAutomation"
+            }
+        }
+        
+
+        stage('Build') {
+            withEnv(["TARGET=${targetV}","CURRENT=${currentV}"]) {
+                dir("bitbucket") {
+                    bat "dir"
+                    bat "nuget.exe restore NebPowerAutomation.sln"
+                    bat "MSBuild.exe -verbosity:q NebPowerAutomation.sln -property:Configuration=Release -p:AssemblyVersionNumber=${env.TARGET} -p:AssemblyInformationalVersion=${env.TARGET}"
+                }
+            }
+        }
+
+        stage('Package') {
+            withEnv(["TARGET=${targetV}","CURRENT=${currentV}"]) {
+                bat "dir"
+                bat "mkdir NebPowerAutomation"
+                bat "xcopy bitbucket\\NebPowerAutomation\\bin\\Release\\*.dll NebPowerAutomation /D /S /Y"
+                bat "xcopy bitbucket\\NebPowerAutomation\\bin\\Release\\*.xml NebPowerAutomation /D /S /Y"
+                bat "xcopy bitbucket\\NebPowerAutomation\\*.psd1 NebPowerAutomation /D /S /Y"
+                powershell "Update-ModuleManifest -Path .\\NebPowerAutomation\\NebPowerAutomation.psd1 -ModuleVersion \"${env.TARGET}\""
+                powershell 'Test-ModuleManifest -Path ".\\NebPowerAutomation\\NebPowerAutomation.psd1"'
+            }
+        }
+
+        stage('Publish PowerShellGallery') {
+            if (publish == "true") {
+                withCredentials([string(credentialsId: 'powershell-gallery', variable: 'PSG_TOKEN')]) {
+                    powershell "Publish-Module  -Path .\\NebPowerAutomation -NugetAPIKey ${PSG_TOKEN} -Force"
+                }
+            }
+        }
+
+    } catch(e) {
+        currentBuild.result = 'FAILED'
+        notifySlack('FAILED', '')
+    }
+
+    if (currentBuild.result == 'SUCCESS') {
+        echo 'Build succeeded'
+        notifySlack('SUCCESS', 'Install with `Install-Module -Name NebPowerAutomation`')
     }
 }
 
-def getNugetDir() {
-    return pwd() + "/" + "packages"
+def notifySlack(String status, String message) {
+    def subject = "*${status}*: PowerShell Module v${env.TARGET}"
+
+    def links = "<${env.BUILD_URL}console|Console Output>"
+    def summary = "${subject}\n${links}\n${message}"
+
+    def colorCode = '#FF0000'
+    if (status == 'SUCCESS') {
+        colorCode = '#00FF00'
+    }
+
+    slackSend (channel: '#sdks', color: colorCode, message: summary)
 }
-
-def getAppVersion() {
-    return BUILD_ID
-}
-
-def notifySlack(changes) {
-  def status = currentBuild.currentResult  
-  def subject = "*${status}*: Job `${env.JOB_NAME} [${env.BUILD_NUMBER}]` Branch `${env.branch}`"
-  def linksOK = "<${env.BUILD_URL}console|Console Output> - <${env.BUILD_URL}artifact/TestResults/TestResults.html|Test Results> - <${env.BUILD_URL}artifact/package.zip|Package>"
-  def linksFailure = "<${env.BUILD_URL}|Job URL> - <${env.BUILD_URL}console|Console Output> - <${env.BUILD_URL}artifact/TestResults/TestResults.html|Test Results>\n${changes}"
-  def summary = "${subject}\n${linksFailure}"
-  
-  def color = 'RED'
-  def colorCode = '#FF0000'
-
-  if (status == 'UNSTABLE') {
-    color = 'YELLOW'
-    colorCode = '##FFFF00'
-  } else if (status == 'SUCCESS') {
-    color = 'GREEN'
-    colorCode = '#00FF00'
-    summary = "${subject}\n${linksOK}"
-  }
-  
-  slackSend (color: colorCode, message: summary)
-}
-

@@ -36,7 +36,7 @@ namespace NebSharp
         /// <summary>
         /// Time in milliseconds to wait for a response from UCAPI.
         /// </summary>
-        private const int GRAPHQL_WAITTIME_MS = 6 * 1000;
+        private const int GRAPHQL_WAITTIME_MS = 60 * 1000;
 
         /// <summary>
         /// Time in milliseconds to wait for resource creation after token
